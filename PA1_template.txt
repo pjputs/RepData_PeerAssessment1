@@ -1,0 +1,44 @@
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
+
+
+## Loading and preprocessing the data
+Data is loaded from https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip
+```{r}
+activity <- read.csv("activity.csv")
+```
+
+## What is mean total number of steps taken per day?
+```{r}
+cleanact <- activity[!is.na(activity$steps),]
+perday<-count(cleanact,"date","steps") # requires library(plyr)
+hist(perday[,2], main="Histogram of Steps per Day", xlab="Steps per Day", col="green")
+mean(perday[,2])
+median(perday[,2])
+```
+
+## What is the average daily activity pattern?
+
+```{r}
+ag<-aggregate(steps ~ interval,data=activity, mean)
+plot(ag,type="l")
+ags<-sort.list(ag[,2], decreasing=TRUE)
+ag[ags[1],1]
+```
+
+## Imputing missing values
+
+
+
+
+
+
+
+
+
+
+## Are there differences in activity patterns between weekdays and weekends?
